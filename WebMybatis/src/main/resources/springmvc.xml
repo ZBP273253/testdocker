@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	<!-- 在实际开发中通常都需配置 mvc:annotation-driven 标签-->
+	<mvc:annotation-driven ></mvc:annotation-driven> 
+	
+	<mvc:default-servlet-handler></mvc:default-servlet-handler>
+	
+	<context:component-scan base-package="Controller" use-default-filters="false">
+	
+		<!--包含  -->
+	<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+  	<context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
+ 	 	
+	</context:component-scan>
+	
+	<bean  class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	<!-- 	配置结果视图的前缀和后缀	 -->
+		<property name="prefix" value="/WEB-INF/pages/"/>
+		<property name="suffix" value=".jsp" />
+	</bean>
+	<!-- 配置国际化资源文件 -->
+	<bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basename" value="i18n"></property>
+	</bean>
+	
+	<!-- 	配置 MultipartResolver -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="defaultEncoding" value="UTF-8"></property>
+		<property name="maxUploadSize" value="1048576"></property>	
+	</bean>
+	
+	<!-- 配置 SessionLocalResolver -->
+	<bean id="localeResolver"
+		class="org.springframework.web.servlet.i18n.SessionLocaleResolver"></bean>
+		
+	<mvc:interceptors>		
+		<!-- 配置 LocaleChanceInterceptor -->
+		<bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"></bean>
+	</mvc:interceptors>
+
+	<mvc:view-controller path="fenye" view-name="list"/>
+	<mvc:view-controller path="list" view-name="beifen"/>
+
+</beans>

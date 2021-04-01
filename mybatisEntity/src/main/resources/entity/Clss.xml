@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.ClssMapper">
+    <select id="getClsss" parameterType="entity.Clas" resultMap="getc">
+        select * from clss
+    </select>
+    <resultMap id="getc" type="entity.Clas">
+        <id column="sid" property="id"></id>
+        <result column="sname" property="name"></result>
+    </resultMap>
+    <select id="getClssId" resultType="entity.Clas" parameterType="int">
+        select * from clss where sid=#{id}
+    </select>
+</mapper>
+
+
+
